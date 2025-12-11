@@ -8,6 +8,7 @@ public class GroundDetector : MonoBehaviour
     public bool IsGround()
     {
         Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _detectorSize, 0);
+        
         foreach (Collider2D collider in hits)
         {
             if(collider.gameObject.TryGetComponent<Ground>(out _))
