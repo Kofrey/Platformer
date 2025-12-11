@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 public class Coin : MonoBehaviour, ICollectable
 {
     [SerializeField] private int _worth = 1;
