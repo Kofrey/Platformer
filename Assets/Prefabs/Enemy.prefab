@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 4939231653281092324}
   - component: {fileID: 7234319199409947494}
   - component: {fileID: 5925442772601528733}
+  - component: {fileID: 4953655985095952547}
+  - component: {fileID: 2883211775162276439}
+  - component: {fileID: 4801172725104949441}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -180,13 +183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1761a98aa1bcd448ea05b672703baf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  _groundDetector: {fileID: 452249033707405872}
+  _damage: 1
+  _patrol: {fileID: 4953655985095952547}
+  _fliper: {fileID: 4801172725104949441}
   _mover: {fileID: 5925442772601528733}
-  _player: {fileID: 0}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _isPatrolling: 1
 --- !u!114 &5925442772601528733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,46 +202,28 @@ MonoBehaviour:
   _speedX: 80
   _jumpForce: 2
   _rigidbody: {fileID: 3933323434401093311}
---- !u!1 &9112632564214147713
-GameObject:
+--- !u!114 &4953655985095952547
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5125158558045828349}
-  - component: {fileID: 3457600767742184136}
-  - component: {fileID: 452249033707405872}
-  m_Layer: 0
-  m_Name: GroundDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5125158558045828349
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9112632564214147713}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.004, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2858728953873467384}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &3457600767742184136
+  m_GameObject: {fileID: 4636849050991647992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 105ef604fb3e39f4e8aba9f337523f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Patrol
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!61 &2883211775162276439
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9112632564214147713}
+  m_GameObject: {fileID: 4636849050991647992}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -269,18 +251,62 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.00013959408, y: -0.14383566}
+  m_Offset: {x: -0.0009245947, y: -0.032361448}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.14491391, y: 0.027125835}
+  m_Size: {x: 0.21089567, y: 0.2552771}
   m_EdgeRadius: 0
+--- !u!114 &4801172725104949441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4636849050991647992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92d4f986e24da843852adcafcc11081, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fliper
+--- !u!1 &9112632564214147713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5125158558045828349}
+  - component: {fileID: 452249033707405872}
+  m_Layer: 0
+  m_Name: GroundDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5125158558045828349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112632564214147713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1401, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2858728953873467384}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &452249033707405872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,3 +319,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf29ba72c52a9b4a89c7f2db3163514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundDetector
+  _drawCubeGizmo: 1
+  _detectorSize: {x: 0.23, y: 0.1}

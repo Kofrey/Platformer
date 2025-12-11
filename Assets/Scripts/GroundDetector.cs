@@ -2,17 +2,26 @@ using UnityEngine;
 
 public class GroundDetector : MonoBehaviour
 {
-    [SerializeField] public bool IsGround { get; private set; }
+    [SerializeField] private bool _drawCubeGizmo = true;
+    [SerializeField] private Vector2 _detectorSize;
 
-    private void OnTriggerStay2D(Collider2D collider)
-    { 
-        if (collider.gameObject.TryGetComponent<Ground>(out _))
-            IsGround = true;
+    public bool IsGround()
+    {
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, _detectorSize, 0);
+        foreach (Collider2D collider in hits)
+        {
+            if(collider.gameObject.TryGetComponent<Ground>(out _))
+                return true;
+        }
+
+        return false;
     }
 
-    private void OnTriggerExit2D(Collider2D collider)
+     void OnDrawGizmos()
     {
-        if (collider.gameObject.TryGetComponent<Ground>(out _))
-            IsGround = false;
+        Gizmos.color = Color.red;
+        
+        if (_drawCubeGizmo)
+            Gizmos.DrawWireCube(transform.position,  new Vector3(_detectorSize.x, _detectorSize.y, transform.localScale.z));
     }
 }

@@ -7,7 +7,8 @@ using System.Linq;
 public class ObjectSpawner : MonoBehaviour
 {
     [SerializeField] private Tilemap _tilemap;
-    [SerializeField] private GameObject[] _prefabs;
+    [SerializeField] private Coin _coinPrefab;
+    [SerializeField] private Enemy _enemyPrefab;
     [SerializeField] private int _maxObjects = 8;
     [SerializeField] private int _maxCoinOnSpot;
     [SerializeField] private float _enemyProbability = 0.2f;
@@ -93,7 +94,16 @@ public class ObjectSpawner : MonoBehaviour
         if (validPositionFound)
         {
             ObjectType objectType = RandomObjectType();
-            GameObject gameObject = Instantiate(_prefabs[(int)objectType], spawnPosition, Quaternion.identity);
+
+            if (objectType == ObjectType.Coin)
+            {
+                Coin gameObject = Instantiate(_coinPrefab, spawnPosition, Quaternion.identity);
+            }
+            else 
+            {
+                Enemy gameObject = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
+            }
+            
             _spawnObjects.Add(gameObject);
         }
     }
