@@ -17,7 +17,7 @@ public class GroundDetector : MonoBehaviour
         return false;
     }
 
-     void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         
