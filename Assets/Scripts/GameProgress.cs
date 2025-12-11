@@ -7,8 +7,7 @@ public class GameProgress : MonoBehaviour
 
     private int _progressAmount;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         _progressAmount = 0;
         _progressSlider.value = 0;
@@ -19,11 +18,5 @@ public class GameProgress : MonoBehaviour
     {
         _progressAmount += amount;
         _progressSlider.value = _progressAmount;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
