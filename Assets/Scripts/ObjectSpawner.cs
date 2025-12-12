@@ -13,6 +13,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private int _maxCoinOnSpot;
     [SerializeField] private float _enemyProbability = 0.2f;
     [SerializeField] private float _spawnInterval = 8f;
+    [SerializeField] private GameProgress _gameProgress;
 
     private List<Vector3> _validSpawnPositions = new List<Vector3>();
     private List<GameObject> _spawnObjects = new List<GameObject>();
@@ -97,14 +98,16 @@ public class ObjectSpawner : MonoBehaviour
 
             if (objectType == ObjectType.Coin)
             {
-                Coin gameObject = Instantiate(_coinPrefab, spawnPosition, Quaternion.identity);
+                Coin obj = Instantiate(_coinPrefab, spawnPosition, Quaternion.identity);
+                _spawnObjects.Add(obj.gameObject);
+                
+                obj.CoinCollecting += OnCoinCollecting;
             }
             else 
             {
-                Enemy gameObject = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
+                Enemy obj = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
+                _spawnObjects.Add(obj.gameObject);
             }
-            
-            _spawnObjects.Add(gameObject);
         }
     }
 
@@ -129,5 +132,12 @@ public class ObjectSpawner : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnCoinCollecting(Coin collectingResource)
+    {
+        _gameProgress.IncreaseProgressAmount(collectingResource.Worth);
+        collectingResource.CoinCollecting -= OnCoinCollecting;
+        Destroy(collectingResource.gameObject);
     }
 }

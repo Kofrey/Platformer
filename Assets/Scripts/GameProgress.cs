@@ -11,10 +11,9 @@ public class GameProgress : MonoBehaviour
     {
         _progressAmount = 0;
         _progressSlider.value = 0;
-        Coin.OnCoinCollect += IncreaseProgressAmount;
     }
 
-    private void IncreaseProgressAmount(int amount)
+    public void IncreaseProgressAmount(int amount)
     {
         _progressAmount += amount;
         _progressSlider.value = _progressAmount;
