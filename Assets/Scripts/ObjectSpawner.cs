@@ -18,7 +18,7 @@ public class ObjectSpawner : MonoBehaviour
     private float _horizontalShift = 0.5f;
     private float _verticalShift = 2.0f; 
 
-    void Start()
+    private void Start()
     {
         GatherValidPositions();
         StartCoroutine(SpawnObjectsIfNeeded());

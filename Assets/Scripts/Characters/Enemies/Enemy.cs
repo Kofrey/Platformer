@@ -36,7 +36,7 @@ public class Enemy : ObjectSpawned
         _currentState.Enter();
     }
 
-    public bool IsCloseEnough(Vector3 distance, float distanceToCheck)
+    private bool IsCloseEnough(Vector3 distance, float distanceToCheck)
     {
         return distance.sqrMagnitude < distanceToCheck * distanceToCheck;
     }
