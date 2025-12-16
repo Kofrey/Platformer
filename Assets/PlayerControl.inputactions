@@ -23,6 +23,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "e72f63ae-f246-4a7d-91d3-d2892f9a0e3a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -149,8 +158,8 @@
                 },
                 {
                     "name": "",
-                    "id": "5458b3cb-714d-4c00-a40a-f5a355b4b428",
-                    "path": "<Keyboard>/space",
+                    "id": "d05d66a7-76d0-41bf-97a1-a8e2f8abe590",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -160,12 +169,23 @@
                 },
                 {
                     "name": "",
-                    "id": "d05d66a7-76d0-41bf-97a1-a8e2f8abe590",
-                    "path": "<Keyboard>/w",
+                    "id": "1d320b55-b54f-4897-afd5-03373f740296",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9d3740f-ddbf-40a9-8aa3-548535258242",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

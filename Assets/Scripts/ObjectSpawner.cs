@@ -7,16 +7,17 @@ using System.Linq;
 public class ObjectSpawner : MonoBehaviour
 {
     [SerializeField] private Tilemap _tilemap;
-    [SerializeField] private Coin _coinPrefab;
-    [SerializeField] private Enemy _enemyPrefab;
+    [SerializeField] private Spawned _coinPrefab;
+    [SerializeField] private Spawned _enemyPrefab;
+    [SerializeField] private Spawned _healItemPrefab;
     [SerializeField] private int _maxObjects = 8;
-    [SerializeField] private int _maxCoinOnSpot;
     [SerializeField] private float _enemyProbability = 0.2f;
-    [SerializeField] private float _spawnInterval = 8f;
+    [SerializeField] private float _healItemProbability = 0.2f;
+    [SerializeField] private float _spawnInterval = 4f;
     [SerializeField] private GameProgress _gameProgress;
 
     private List<Vector3> _validSpawnPositions = new List<Vector3>();
-    private List<GameObject> _spawnObjects = new List<GameObject>();
+    private List<Spawned> _spawnObjects = new List<Spawned>();
     private bool _isSpawning = false;
     private float _distanceToCheckOnSpawn = 1f;
     private float _horizontalShift = 0.5f;
@@ -25,7 +26,8 @@ public class ObjectSpawner : MonoBehaviour
     public enum ObjectType 
     {
         Coin,
-        Enemy
+        Enemy,
+        Heal
     }
 
     void Start()
@@ -64,6 +66,8 @@ public class ObjectSpawner : MonoBehaviour
 
         if(randomChoice <= _enemyProbability)
             return ObjectType.Enemy;
+        else if(randomChoice <= _enemyProbability + _healItemProbability)
+            return ObjectType.Heal;
         else 
             return ObjectType.Coin;
     }
@@ -96,18 +100,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             ObjectType objectType = RandomObjectType();
 
-            if (objectType == ObjectType.Coin)
-            {
-                Coin obj = Instantiate(_coinPrefab, spawnPosition, Quaternion.identity);
-                _spawnObjects.Add(obj.gameObject);
-                
-                obj.CoinCollecting += OnCoinCollecting;
-            }
-            else 
-            {
-                Enemy obj = Instantiate(_enemyPrefab, spawnPosition, Quaternion.identity);
-                _spawnObjects.Add(obj.gameObject);
-            }
+            InstantiateItem(objectType, spawnPosition);
         }
     }
 
@@ -134,10 +127,32 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    private void OnCoinCollecting(Coin collectingResource)
+    private void InstantiateItem(ObjectType objectType, Vector3 spawnPosition)
+    {   
+        Spawned prefab;
+
+        if(objectType == ObjectType.Coin)
+        {
+            prefab = _coinPrefab;
+        }
+        else if(objectType == ObjectType.Enemy)
+        {
+            prefab = _enemyPrefab;
+        }
+        else 
+        {
+            prefab = _healItemPrefab;
+        }
+
+        Spawned obj = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        _spawnObjects.Add(obj);
+                
+        obj.Destroying += OnDestroying; 
+    }
+
+    private void OnDestroying(Spawned resource)
     {
-        _gameProgress.IncreaseProgressAmount(collectingResource.Worth);
-        collectingResource.CoinCollecting -= OnCoinCollecting;
-        Destroy(collectingResource.gameObject);
+        resource.Destroying -= OnDestroying;
+        Destroy(resource.gameObject);
     }
 }

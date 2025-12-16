@@ -1,16 +1,16 @@
 using System;
 using UnityEngine;
 
-public class Coin : MonoBehaviour, ICollectable
+public class Coin : Spawned
 {
     [SerializeField] private int _worth = 1;
 
-    public int Worth => _worth;
-
-    public event Action<Coin> CoinCollecting;
-
-    public void Collect()
+    private void OnTriggerEnter2D(Collider2D other) 
     {
-        CoinCollecting?.Invoke(this);
+        if(other.TryGetComponent<Collector>(out Collector resource))
+        {
+            resource.OnCoinCollecting(_worth);
+            InvokeDestroying();
+        }
     }
 }

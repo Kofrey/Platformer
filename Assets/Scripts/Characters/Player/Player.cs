@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Fliper _fliper;
     [SerializeField] private GravityScaler _gravityScaler;
     [SerializeField] private Jumper _jumper;
+    [SerializeField] private Attacker _attacker;
 
     private float _horizontalMovement;
 
@@ -26,5 +27,10 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
             _jumper.Jump();
+    }
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        _attacker.Attack();
     }
 }

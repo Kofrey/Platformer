@@ -47,4 +47,14 @@ public partial class Patrol : IState
         _mover.Move(direction);
         _fliper.Flip(direction);
     }
+
+    public void Exit()
+    {
+        this.enabled = false;
+    }
+
+    public void Enter()
+    {
+        this.enabled = true;
+    }
 }
