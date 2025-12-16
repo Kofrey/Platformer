@@ -289,7 +289,7 @@ MonoBehaviour:
   _playerTransform: {fileID: 0}
   _health: {fileID: 3717990572988081987}
   _attacker: {fileID: 3453738563051983103}
-  _distanceToStartAttack: 0.6
+  _distanceToStartAttack: 0.65
 --- !u!114 &5925442772601528733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +303,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mover
   _speedX: 80
-  _jumpForce: 2
   _rigidbody: {fileID: 3933323434401093311}
 --- !u!61 &2883211775162276439
 BoxCollider2D:
@@ -475,8 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attacker
   _timeBetweenAttack: 1.5
-  _range: 0.2
-  _attack: {fileID: 4056534662175198506}
+  _hitbox: {fileID: 4056534662175198506}
 --- !u!1 &9112632564214147713
 GameObject:
   m_ObjectHideFlags: 0
