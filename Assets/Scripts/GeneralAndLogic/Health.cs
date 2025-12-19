@@ -31,8 +31,9 @@ public class Health : MonoBehaviour
         AmountChanged?.Invoke(_current);
     }
 
-    public void TakeDamage(int damage)
+    public int TakeDamage(int damage)
     {
+        int damageTaken = damage;
         _current -= damage;
         
         HitTaken?.Invoke();
@@ -40,7 +41,11 @@ public class Health : MonoBehaviour
 
         if(_current <= 0)
         {
+            damageTaken = damage + _current;
+            _current = 0;
             Dead?.Invoke();
         }
+
+        return damageTaken;
     }
 }

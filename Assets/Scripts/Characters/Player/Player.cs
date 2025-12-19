@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GravityScaler _gravityScaler;
     [SerializeField] private Jumper _jumper;
     [SerializeField] private Attacker _attacker;
+    [SerializeField] private AbilityActivator _ability;
 
     private float _horizontalMovement;
 
@@ -32,5 +33,10 @@ public class Player : MonoBehaviour
     public void Attack(InputAction.CallbackContext context)
     {
         _attacker.Attack();
+    }
+
+    public void ActivateAbility(InputAction.CallbackContext context)
+    {
+        _ability.Activate();
     }
 }
