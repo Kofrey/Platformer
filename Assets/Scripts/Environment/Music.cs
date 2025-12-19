@@ -7,6 +7,9 @@ public class Music : MonoBehaviour
     [SerializeField] private Slider _musicSlider;
 
     private AudioSource _audioSource;
+    private bool _isPlaying = true;
+
+    public bool IsPlaying => _isPlaying;
 
     private void Awake()
     {
@@ -28,7 +31,7 @@ public class Music : MonoBehaviour
         _audioSource.volume = value;
     }
 
-    public void PlayBackgroundMusic(bool isResetSong, AudioClip audioClip = null)
+    public void PlayBackgroundMusic(bool isResetSong = true, AudioClip audioClip = null)
     {
         if(audioClip != null)
         {
@@ -43,11 +46,13 @@ public class Music : MonoBehaviour
             }
 
             _audioSource.Play();
+            _isPlaying = true;
         }
     }
 
     public void PauseBackgroundMusic()
     {
         _audioSource.Pause();
+        _isPlaying = false;
     }
 }

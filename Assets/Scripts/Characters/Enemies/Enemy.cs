@@ -22,7 +22,7 @@ public class Enemy : ObjectSpawned
 
     private void Awake()
     {
-        _health.DeathPerforming += OnDeathPerforming;
+        _health.Dead += OnDeathPerforming;
         _currentState = _patrol;
         Player _player = FindAnyObjectByType<Player>();
         _playerTransform = _player.transform;

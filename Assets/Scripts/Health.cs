@@ -5,11 +5,14 @@ using System.Collections;
 public class Health : MonoBehaviour
 {
     [SerializeField] private int _max = 3;
-    
-    private int _current;
+    [SerializeField] private int _current;
+
+    public int Max => _max;
+    public int Current => _current;
 
     public event Action HitTaken;
-    public event Action DeathPerforming;
+    public event Action Dead;
+    public event Action<int> AmountChanged;
 
     private void Start()
     {
@@ -24,6 +27,8 @@ public class Health : MonoBehaviour
         {
             _current = _max;
         }
+
+        AmountChanged?.Invoke(_current);
     }
 
     public void TakeDamage(int damage)
@@ -31,10 +36,11 @@ public class Health : MonoBehaviour
         _current -= damage;
         
         HitTaken?.Invoke();
+        AmountChanged?.Invoke(_current);
 
         if(_current <= 0)
         {
-            DeathPerforming?.Invoke();
+            Dead?.Invoke();
         }
     }
 }
