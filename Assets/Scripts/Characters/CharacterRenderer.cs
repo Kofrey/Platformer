@@ -10,15 +10,17 @@ public class CharacterRenderer : MonoBehaviour
     [SerializeField] private Health _health;
 
     private float _flashTime = 0.15f;
+    private int _currentHealth;
 
     private void OnEnable()
     {
-        _health.HitTaken += OnHitTaken;
+        _currentHealth = _health.Current;
+        _health.AmountChanged += OnHealthAmountChaged;
     }
 
     private void OnDisable()
     {
-        _health.HitTaken -= OnHitTaken;
+        _health.AmountChanged -= OnHealthAmountChaged;
     }
 
     private void Update()
@@ -27,14 +29,19 @@ public class CharacterRenderer : MonoBehaviour
         _agent.SetFloat(_agent.Magnitude, Mathf.Abs(_rigidbody.linearVelocityX));
     }
 
-    private void OnHitTaken()
+    private void OnHealthAmountChaged(int newHealth)
     {
-        StartCoroutine(FlashRed());
+        if(newHealth < _currentHealth)
+            StartCoroutine(FlashColor(Color.red));
+        else if(newHealth > _currentHealth)
+            StartCoroutine(FlashColor(Color.green));
+
+        _currentHealth = newHealth;
     }
 
-    private IEnumerator FlashRed()
+    private IEnumerator FlashColor(Color color)
     {
-        _spriteRenderer.color = Color.red;
+        _spriteRenderer.color = color;
         yield return new WaitForSeconds(_flashTime);
         _spriteRenderer.color = Color.white;
     }

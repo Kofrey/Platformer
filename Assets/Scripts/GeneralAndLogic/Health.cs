@@ -10,7 +10,6 @@ public class Health : MonoBehaviour
     public int Max => _max;
     public int Current => _current;
 
-    public event Action HitTaken;
     public event Action Dead;
     public event Action<int> AmountChanged;
 
@@ -36,7 +35,6 @@ public class Health : MonoBehaviour
         int damageTaken = damage;
         _current -= damage;
         
-        HitTaken?.Invoke();
         AmountChanged?.Invoke(_current);
 
         if(_current <= 0)
